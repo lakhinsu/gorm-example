@@ -1,0 +1,47 @@
+version: '3.6'
+
+networks:
+  rabbitmq-example:
+    driver: bridge
+
+services:
+  gorm_example:
+    build: .
+    restart: always
+    ports:
+     - "5000:5000"
+    networks:
+      - rabbitmq-example
+    depends_on:
+      - "db"
+    command: ["./wait-for-it.sh", "db:5432", "--", "./gorm-example"]
+    environment: # Example ENV configuration
+      APP_NAME: "gorm-example"
+      GIN_MODE: "release"
+      GIN_HTTPS: "false"
+      GIN_ADDR: "0.0.0.0"
+      GIN_PORT: "5000"
+      LOG_LEVEL: "INFO"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "example"
+      POSTGRES_DB: "postgres"
+      POSTGRES_HOST: "db"
+      POSTGRES_PORT: "5432"
+      POSTGRES_SSL: "disable"
+      POSTGRES_TIMEZONE: "Asia/Kolkata"
+  db:
+    image: postgres
+    restart: always
+    networks:
+      - rabbitmq-example
+    environment:
+      POSTGRES_PASSWORD: example
+    # ports:
+    #   - 5432:5432 # Expose this port while running REST service locally
+  adminer:
+    image: adminer
+    networks:
+      - rabbitmq-example
+    restart: always
+    ports:
+      - 8080:8080
