@@ -28,6 +28,12 @@ func SetupApp() *gin.Engine {
 	log.Info().Msg("Setting up routers")
 	routers.SetupRouters(app)
 
+	log.Info().Msg("Creating the database connection")
+	// Create the database connection
+	if dberr := utils.CreateDBConnection(); dberr != nil {
+		log.Err(dberr).Msg("Error occurred while creating the database connection")
+	}
+
 	// Auto migrate database
 	err := utils.AutoMigrateDB()
 	if err != nil {

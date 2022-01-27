@@ -24,6 +24,7 @@ func main() {
 	port := utils.GetEnvVar("GIN_PORT")
 
 	https := utils.GetEnvVar("GIN_HTTPS")
+
 	// HTTPS mode
 	if https == "true" {
 		certFile := utils.GetEnvVar("GIN_CERT")
@@ -39,4 +40,5 @@ func main() {
 	if err := app.Run(fmt.Sprintf("%s:%s", addr, port)); err != nil {
 		log.Fatal().Err(err).Msg("Error occurred while setting up the server")
 	}
+
 }

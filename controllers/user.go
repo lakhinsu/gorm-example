@@ -31,10 +31,10 @@ func CreateUser(c *gin.Context) {
 	}
 	user.FillDefaults()
 
-	// Create a connection
-	db, conErr := utils.CreateDBConnection()
+	// Get a connection
+	db, conErr := utils.GetDatabaseConnection()
 	if conErr != nil {
-		log.Err(conErr).Str("request_id", request_id).Msg("Error occurred while creating a DB connection")
+		log.Err(conErr).Str("request_id", request_id).Msg("Error occurred while getting a DB connection from the connection pool")
 		c.JSON(http.StatusServiceUnavailable, gin.H{
 			"message": "Service is unavailable",
 		})
@@ -75,10 +75,10 @@ func UpdateUser(c *gin.Context) {
 	}
 	user.FillDefaults()
 
-	// Create a connection
-	db, conErr := utils.CreateDBConnection()
+	// Get a connection
+	db, conErr := utils.GetDatabaseConnection()
 	if conErr != nil {
-		log.Err(conErr).Str("request_id", request_id).Msg("Error occurred while creating a DB connection")
+		log.Err(conErr).Str("request_id", request_id).Msg("Error occurred while getting a DB connection from the connection pool")
 		c.JSON(http.StatusServiceUnavailable, gin.H{
 			"message": "Service is unavailable",
 		})
@@ -133,10 +133,10 @@ func GetUser(c *gin.Context) {
 		return
 	}
 
-	// Create a connection
-	db, conErr := utils.CreateDBConnection()
+	// Get a connection
+	db, conErr := utils.GetDatabaseConnection()
 	if conErr != nil {
-		log.Err(conErr).Str("request_id", request_id).Msg("Error occurred while creating a DB connection")
+		log.Err(conErr).Str("request_id", request_id).Msg("Error occurred while getting a DB connection from the connection pool")
 		c.JSON(http.StatusServiceUnavailable, gin.H{
 			"message": "Service is unavailable",
 		})
@@ -172,10 +172,10 @@ func GetUsers(c *gin.Context) {
 	earliest := c.DefaultQuery("earliest", "0")
 	latest := c.DefaultQuery("latest", fmt.Sprint(time.Now().UnixMilli()))
 
-	// Create a connection
-	db, conErr := utils.CreateDBConnection()
+	// Get a connection
+	db, conErr := utils.GetDatabaseConnection()
 	if conErr != nil {
-		log.Err(conErr).Str("request_id", request_id).Msg("Error occurred while creating a DB connection")
+		log.Err(conErr).Str("request_id", request_id).Msg("Error occurred while getting a DB connection from the connection pool")
 		c.JSON(http.StatusServiceUnavailable, gin.H{
 			"message": "Service is unavailable",
 		})
@@ -216,10 +216,10 @@ func DeleteUser(c *gin.Context) {
 		return
 	}
 
-	// Create a connection
-	db, conErr := utils.CreateDBConnection()
+	// Get a connection
+	db, conErr := utils.GetDatabaseConnection()
 	if conErr != nil {
-		log.Err(conErr).Str("request_id", request_id).Msg("Error occurred while creating a DB connection")
+		log.Err(conErr).Str("request_id", request_id).Msg("Error occurred while getting a DB connection from the connection pool")
 		c.JSON(http.StatusServiceUnavailable, gin.H{
 			"message": "Service is unavailable",
 		})
