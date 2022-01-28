@@ -85,8 +85,11 @@ func UpdateUser(c *gin.Context) {
 		return
 	}
 
+	// Create a user object
 	var value models.User
-	result := db.First(&value)
+
+	// Read the user which is to be updated
+	result := db.First(&value, "id = ?", user.ID)
 	if result.Error != nil {
 		log.Err(result.Error).Str("request_id", request_id).Msg("Error occurred while updating the user")
 		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
@@ -100,8 +103,12 @@ func UpdateUser(c *gin.Context) {
 		}
 		return
 	}
+
+	// Update the desired values using the request payload
 	value.FirstName = user.FirstName
 	value.LastName = user.LastName
+
+	// Save the updated user
 	tx := db.Save(&value)
 	if tx.RowsAffected != 1 {
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -109,6 +116,8 @@ func UpdateUser(c *gin.Context) {
 		})
 		return
 	}
+
+	// Return the updated user with the response
 	c.JSON(http.StatusOK, gin.H{
 		"message": "User updated successfully",
 		"result":  value,
