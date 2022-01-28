@@ -1,5 +1,5 @@
 # Example for using ORM in Golang with GORM
-This repository contains the example code for using ORM in golang. I have also written a [blog]() for the same, feel free to check it out. 
+This repository contains the example code for using ORM in golang. I have also written a [blog](https://medium.com/@hinsulak/introduction-to-orm-using-gorm-in-golang-d1936a45ffdb) for the same, feel free to check it out. 
 This repository also contains Dockerfile and docker-compose.yaml files for deploying these example using Docker.
 
 ## Features
