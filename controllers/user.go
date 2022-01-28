@@ -182,7 +182,7 @@ func GetUsers(c *gin.Context) {
 		return
 	}
 
-	tx := db.Order("created_at asc").Where(fmt.Sprintf("created_at >= '%s' and created_at <= '%s'", earliest, latest)).Scopes(utils.Paginate(c)).Find(&users)
+	tx := db.Where(fmt.Sprintf("created_at >= '%s' and created_at <= '%s'", earliest, latest)).Order("created_at asc").Scopes(utils.Paginate(c)).Find(&users)
 
 	if tx.RowsAffected == 0 {
 		c.JSON(http.StatusOK, gin.H{
