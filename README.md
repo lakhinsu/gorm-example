@@ -2,6 +2,14 @@
 This repository contains the example code for using ORM in golang. I have also written a [blog]() for the same, feel free to check it out. 
 This repository also contains Dockerfile and docker-compose.yaml files for deploying these example using Docker.
 
+## Features
+This repo contains example code for following points,
+
+- Creating a GORM model.
+- Creating a connection pool with the database.
+- Auto migrate the models to create the desired tables automatically in the database.
+- Example code for CRUD operations.
+
 ## Run locally
 ### API Service
 Follow these steps to run the API service locally,
